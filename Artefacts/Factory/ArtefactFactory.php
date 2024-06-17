@@ -39,22 +39,15 @@ class ArtefactFactory
         /** @var ArtefactInterface[] $OwnedArtefact */
         foreach ($this->artefacts as $artefact) {
             $requirements = $artefact->necessiteArtefact();
-
-//            if (empty($requirements)) {
-//                if (!in_array(get_class($artefact), array_map('get_class', $OwnedArtefact))) {
-//                    $listOfArtefactsToChoose[] = $artefact;
-//                }
-//            } else {
-                $isValid = true;
-                foreach ($requirements as $requiredArtefact) {
-                    if (!in_array(get_class($requiredArtefact), array_map('get_class', $OwnedArtefact))) {
-                        $isValid = false;
-                    }
+            $isValid = true;
+            foreach ($requirements as $requiredArtefact) {
+                if (!in_array(get_class($requiredArtefact), array_map('get_class', $OwnedArtefact))) {
+                    $isValid = false;
                 }
-                if($isValid && !in_array(get_class($artefact), array_map('get_class', $OwnedArtefact))) {
-                    $listOfArtefactsToChoose[] = $artefact;
-                }
-//            }
+            }
+            if($isValid && !in_array(get_class($artefact), array_map('get_class', $OwnedArtefact))) {
+                $listOfArtefactsToChoose[] = $artefact;
+            }
         }
 
         shuffle($listOfArtefactsToChoose);
